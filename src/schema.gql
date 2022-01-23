@@ -2,21 +2,32 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
+type Store {
   id: ID!
   name: String!
-  email: String!
+  image: String
+  active: Boolean
 }
 
 type Query {
-  getUsers: [User!]!
+  stores: [Store!]!
+  store(id: String!): Store!
 }
 
 type Mutation {
-  createUser(data: CreateUserDto!): User!
+  createStore(data: CreateStoreDto!): Store!
+  updateStore(data: UpdateStoreDto!, id: String!): Store!
+  removeStore(id: String!): Boolean!
 }
 
-input CreateUserDto {
+input CreateStoreDto {
   name: String!
-  email: String!
+  image: String
+  active: Boolean
+}
+
+input UpdateStoreDto {
+  name: String
+  image: String
+  active: Boolean
 }
