@@ -1,8 +1,8 @@
-import { UpdateStoreDto } from './../../dtos/store/update-store.dto';
+import { UpdateStoreDto } from '../../dtos/store/update-store.dto';
 import { CreateStoreDto } from '../../dtos/store/create-store.dto';
 import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { Store } from './store.entity';
+import { Store } from '../../entities/store.entity';
 
 @Injectable()
 export class StoreService {
@@ -26,7 +26,6 @@ export class StoreService {
 
   async update(id: string, dto: UpdateStoreDto): Promise<Store> {
     const store = await this.storeRepository.findOne(id);
-    console.log(store)
     await this.storeRepository.update(store, { ...dto });
     return this.storeRepository.create({ ...store, ...dto });
   }
