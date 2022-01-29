@@ -1,4 +1,5 @@
 import { createConnection } from 'typeorm';
+import { NamingStrategy } from './naming-strategy';
 
 export const databaseProviders = [
   {
@@ -13,6 +14,7 @@ export const databaseProviders = [
         database: 'nest-graphql',
         entities: ['dist/**/*.entity{.ts,.js}'],
         synchronize: true,
+        namingStrategy: new NamingStrategy(),
       }),
   },
 ];
