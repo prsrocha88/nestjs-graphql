@@ -2,22 +2,55 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Offer {
+  id: ID!
+  name: String!
+  price: Float!
+  salePrice: Float
+  availability: Boolean
+  stock: Float
+  link: String!
+  shippingCost: Float
+  deliveryTime: Float
+  rating: Float
+  condition: Condition!
+  active: Boolean!
+  store: Store!
+}
+
+enum Condition {
+  NEW
+  USER
+  REFURBISHED
+}
+
 type Store {
   id: ID!
   name: String!
   image: String
   active: Boolean
+  offer: [Offer!]
 }
 
 type Query {
-  stores: [Store!]!
+  stores(pagination: PaginationDto = {page: 1, maxResultPerPage: 100}): [Store!]!
   store(id: String!): Store!
+  offers(pagination: PaginationDto = {page: 1, maxResultPerPage: 100}): [Offer!]!
+  offer(id: String!): Offer!
+}
+
+input PaginationDto {
+  page: Float
+  maxResultPerPage: Float
 }
 
 type Mutation {
   createStore(data: CreateStoreDto!): Store!
   updateStore(data: UpdateStoreDto!, id: String!): Store!
   removeStore(id: String!): Boolean!
+  createOffer(data: CreateOfferDto!): Offer!
+  updateOffer(data: UpdateOfferDto!, id: String!): Offer!
+  removeOffer(id: String!): Boolean!
 }
 
 input CreateStoreDto {
@@ -29,5 +62,34 @@ input CreateStoreDto {
 input UpdateStoreDto {
   name: String
   image: String
+  active: Boolean
+}
+
+input CreateOfferDto {
+  storeId: String!
+  name: String!
+  price: Float!
+  salePrice: Float
+  availability: Boolean
+  stock: Float
+  link: String!
+  shippingCost: Float
+  deliveryTime: Float
+  rating: Float
+  condition: Condition
+  active: Boolean
+}
+
+input UpdateOfferDto {
+  name: String
+  price: Float
+  salePrice: Float
+  availability: Boolean
+  stock: Float
+  link: String
+  shippingCost: Float
+  deliveryTime: Float
+  rating: Float
+  condition: Condition
   active: Boolean
 }

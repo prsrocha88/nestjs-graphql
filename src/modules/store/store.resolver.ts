@@ -1,3 +1,4 @@
+import { PaginationDto } from '../../dtos/pagination.dto';
 import { UpdateStoreDto } from '../../dtos/store/update-store.dto';
 import { CreateStoreDto } from '../../dtos/store/create-store.dto';
 import { StoreService } from './store.service';
@@ -14,8 +15,16 @@ export class StoreResolver {
   }
 
   @Query(() => [Store], { name: 'stores' })
-  async findAll(): Promise<Store[]> {
-    return this.storeService.findAll();
+  async findAll(
+    @Args('pagination', {
+      defaultValue: {
+        page: 1,
+        maxResultPerPage: 100,
+      },
+    })
+    pagination?: PaginationDto,
+  ): Promise<Store[]> {
+    return this.storeService.findAll(pagination);
   }
 
   @Query(() => Store, { name: 'store' })

@@ -1,8 +1,10 @@
+import { PaginationDto } from '../../dtos/pagination.dto';
 import { UpdateStoreDto } from '../../dtos/store/update-store.dto';
 import { CreateStoreDto } from '../../dtos/store/create-store.dto';
 import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Store } from '../../entities/store.entity';
+import { getPaginationQuery } from '../../utils/utils';
 
 @Injectable()
 export class StoreService {
@@ -16,8 +18,8 @@ export class StoreService {
     return this.storeRepository.save(store);
   }
 
-  async findAll(): Promise<Store[]> {
-    return this.storeRepository.find();
+  async findAll(pagination: PaginationDto): Promise<Store[]> {
+    return this.storeRepository.find(getPaginationQuery(pagination));
   }
 
   async findOne(id: string): Promise<Store> {

@@ -1,5 +1,5 @@
-import { InputType } from "@nestjs/graphql";
-import { IsBoolean, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { InputType } from '@nestjs/graphql';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 @InputType()
 export class CreateStoreDto {
