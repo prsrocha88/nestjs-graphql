@@ -1,3 +1,4 @@
+import { Store } from './../../entities/store.entity';
 import { PaginationDto } from './../../dtos/pagination.dto';
 import { Repository } from 'typeorm';
 import { Inject, Injectable } from '@nestjs/common';
@@ -11,10 +12,13 @@ export class OfferService {
   constructor(
     @Inject('OFFER_REPOSITORY')
     private offerRepository: Repository<Offer>,
+    @Inject('STORE_REPOSITORY')
+    private storeRepository: Repository<Store>,
   ) {}
 
   async create(dto: CreateOfferDto): Promise<Offer> {
-    const offer = this.offerRepository.create(dto);
+    const store = await this.storeRepository.findOne(dto.storeId);
+    const offer = this.offerRepository.create({ ...dto, store });
     return this.offerRepository.save(offer);
   }
 

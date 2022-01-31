@@ -8,7 +8,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { Condition } from 'src/enums/condition.enum';
+import { Condition } from '../../enums/condition.enum';
 
 @InputType()
 export class UpdateOfferDto {

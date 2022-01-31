@@ -16,4 +16,9 @@ export const offerProviders = [
     useFactory: (connection: Connection) => connection.getRepository(Offer),
     inject: ['POSTGRES_CONNECTION'],
   },
+  {
+    provide: 'STORE_REPOSITORY',
+    useFactory: (connection: Connection) => connection.getRepository(Store),
+    inject: ['POSTGRES_CONNECTION'],
+  },
 ];

@@ -29,7 +29,6 @@ type Store {
   name: String!
   image: String
   active: Boolean
-  offer: [Offer!]
 }
 
 type Query {
