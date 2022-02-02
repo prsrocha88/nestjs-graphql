@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Condition } from '../enums/condition.enum';
 import { Store } from './store.entity';
+import { Product } from './product.entity';
 
 @ObjectType()
 @Entity()
@@ -60,4 +61,12 @@ export class Offer {
   })
   @JoinColumn({ name: 'store_id' })
   store: Store;
+
+  @ManyToOne(() => Product, (product) => product.offer, {
+    nullable: false,
+    onDelete: 'CASCADE',
+    eager: true,
+  })
+  @JoinColumn({ name: 'product_id' })
+  product: Product;
 }

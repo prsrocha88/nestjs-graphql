@@ -1,11 +1,11 @@
-import { Store } from './../../entities/store.entity';
-import { PaginationDto } from './../../dtos/pagination.dto';
+import { Store } from '@entities/store.entity';
+import { PaginationDto } from '@dtos/pagination.dto';
 import { Repository } from 'typeorm';
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateOfferDto } from '../../dtos/offer/create-offer.dto';
-import { UpdateOfferDto } from '../../dtos/offer/update-offer.dto';
-import { Offer } from '../../entities/offer.entity';
-import { getPaginationQuery } from '../../utils/utils';
+import { CreateOfferDto } from '@dtos/offer/create-offer.dto';
+import { UpdateOfferDto } from '@dtos/offer/update-offer.dto';
+import { Offer } from '@entities/offer.entity';
+import { getPaginationQuery } from '@utils/utils';
 
 @Injectable()
 export class OfferService {
@@ -30,13 +30,13 @@ export class OfferService {
     return this.offerRepository.findOne(id);
   }
 
-  async update(id: string, dto: UpdateOfferDto) {
+  async update(id: string, dto: UpdateOfferDto): Promise<Offer> {
     const offer = await this.offerRepository.findOne(id);
     await this.offerRepository.update(offer, { ...dto });
     return this.offerRepository.create({ ...offer, ...dto });
   }
 
-  async remove(id: string) {
+  async remove(id: string): Promise<boolean> {
     const deleted = await this.offerRepository.delete(id);
     return !!deleted;
   }

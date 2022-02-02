@@ -1,9 +1,9 @@
-import { PaginationDto } from '../../dtos/pagination.dto';
-import { UpdateStoreDto } from '../../dtos/store/update-store.dto';
-import { CreateStoreDto } from '../../dtos/store/create-store.dto';
+import { PaginationDto } from '@dtos/pagination.dto';
+import { UpdateStoreDto } from '@dtos/store/update-store.dto';
+import { CreateStoreDto } from '@dtos/store/create-store.dto';
 import { StoreService } from './store.service';
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { Store } from '../../entities/store.entity';
+import { Store } from '@entities/store.entity';
 
 @Resolver(() => Store)
 export class StoreResolver {

@@ -1,9 +1,9 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { OfferService } from './offer.service';
-import { Offer } from '../../entities/offer.entity';
-import { CreateOfferDto } from '../../dtos/offer/create-offer.dto';
-import { UpdateOfferDto } from '../../dtos/offer/update-offer.dto';
-import { PaginationDto } from '../../dtos/pagination.dto';
+import { Offer } from '@entities/offer.entity';
+import { CreateOfferDto } from '@dtos/offer/create-offer.dto';
+import { UpdateOfferDto } from '@dtos/offer/update-offer.dto';
+import { PaginationDto } from '@dtos/pagination.dto';
 
 @Resolver(() => Offer)
 export class OfferResolver {
@@ -33,7 +33,10 @@ export class OfferResolver {
   }
 
   @Mutation(() => Offer)
-  async updateOffer(@Args('id') id: string, @Args('data') dto: UpdateOfferDto) {
+  async updateOffer(
+    @Args('id') id: string,
+    @Args('data') dto: UpdateOfferDto,
+  ): Promise<Offer> {
     return this.offerService.update(id, dto);
   }
 

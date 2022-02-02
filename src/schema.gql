@@ -31,11 +31,33 @@ type Store {
   active: Boolean
 }
 
+type ProductCharacteristics {
+  size: String
+  sizeSystem: String
+  gender: String
+  ageGroup: String
+  color: String
+  weight: String
+  height: String
+  width: String
+  length: String
+}
+
+type Product {
+  id: ID!
+  name: String!
+  description: String
+  brand: String!
+  active: Boolean!
+  characteristics: ProductCharacteristics
+}
+
 type Query {
   stores(pagination: PaginationDto = {page: 1, maxResultPerPage: 100}): [Store!]!
   store(id: String!): Store!
   offers(pagination: PaginationDto = {page: 1, maxResultPerPage: 100}): [Offer!]!
   offer(id: String!): Offer!
+  product(id: Int!): Product!
 }
 
 input PaginationDto {
@@ -50,6 +72,9 @@ type Mutation {
   createOffer(data: CreateOfferDto!): Offer!
   updateOffer(data: UpdateOfferDto!, id: String!): Offer!
   removeOffer(id: String!): Boolean!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(updateProductInput: UpdateProductInput!): Product!
+  removeProduct(id: Int!): Product!
 }
 
 input CreateStoreDto {
@@ -91,4 +116,15 @@ input UpdateOfferDto {
   rating: Float
   condition: Condition
   active: Boolean
+}
+
+input CreateProductInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateProductInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
