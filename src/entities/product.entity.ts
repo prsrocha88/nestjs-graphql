@@ -1,6 +1,8 @@
 import { Field, HideField, ID, ObjectType } from '@nestjs/graphql';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Offer } from './offer.entity';
+import { ProductImage } from './product-image.entity';
+import { ProductSku } from './product-sku.entity';
 
 @ObjectType()
 export class ProductCharacteristics {
@@ -41,6 +43,14 @@ export class Product {
   characteristics?: ProductCharacteristics;
 
   @HideField()
-  @OneToMany(() => Offer, offer => offer.store)
-  offer?: Offer[];
+  @OneToMany(() => Offer, (offer) => offer.store)
+  offers?: Offer[];
+
+  @HideField()
+  @OneToMany(() => ProductImage, (image) => image.product)
+  images?: ProductImage[];
+
+  @HideField()
+  @OneToMany(() => ProductSku, (sku) => sku.product)
+  skus?: ProductSku[];
 }

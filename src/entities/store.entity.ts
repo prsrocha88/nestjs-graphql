@@ -20,5 +20,5 @@ export class Store {
 
   @HideField()
   @OneToMany(() => Offer, offer => offer.store)
-  offer?: Offer[];
+  offers?: Offer[];
 }

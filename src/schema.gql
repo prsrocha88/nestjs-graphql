@@ -2,35 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Offer {
-  id: ID!
-  name: String!
-  price: Float!
-  salePrice: Float
-  availability: Boolean
-  stock: Float
-  link: String!
-  shippingCost: Float
-  deliveryTime: Float
-  rating: Float
-  condition: Condition!
-  active: Boolean!
-  store: Store!
-}
-
-enum Condition {
-  NEW
-  USER
-  REFURBISHED
-}
-
-type Store {
-  id: ID!
-  name: String!
-  image: String
-  active: Boolean
-}
-
 type ProductCharacteristics {
   size: String
   sizeSystem: String
@@ -52,12 +23,43 @@ type Product {
   characteristics: ProductCharacteristics
 }
 
+type Offer {
+  id: ID!
+  name: String!
+  price: Float!
+  salePrice: Float
+  availability: Boolean
+  stock: Float
+  link: String!
+  shippingCost: Float
+  deliveryTime: Float
+  rating: Float
+  condition: Condition!
+  active: Boolean!
+  store: Store!
+  product: Product!
+}
+
+enum Condition {
+  NEW
+  USER
+  REFURBISHED
+}
+
+type Store {
+  id: ID!
+  name: String!
+  image: String
+  active: Boolean
+}
+
 type Query {
   stores(pagination: PaginationDto = {page: 1, maxResultPerPage: 100}): [Store!]!
   store(id: String!): Store!
   offers(pagination: PaginationDto = {page: 1, maxResultPerPage: 100}): [Offer!]!
   offer(id: String!): Offer!
-  product(id: Int!): Product!
+  products(pagination: PaginationDto = {page: 1, maxResultPerPage: 100}): [Product!]!
+  product(id: String!): Product!
 }
 
 input PaginationDto {
@@ -72,9 +74,9 @@ type Mutation {
   createOffer(data: CreateOfferDto!): Offer!
   updateOffer(data: UpdateOfferDto!, id: String!): Offer!
   removeOffer(id: String!): Boolean!
-  createProduct(createProductInput: CreateProductInput!): Product!
-  updateProduct(updateProductInput: UpdateProductInput!): Product!
-  removeProduct(id: Int!): Product!
+  createProduct(data: CreateProductDto!): Product!
+  updateProduct(data: UpdateProductDto!, id: String!): Product!
+  removeProduct(id: String!): Boolean!
 }
 
 input CreateStoreDto {
@@ -90,6 +92,7 @@ input UpdateStoreDto {
 }
 
 input CreateOfferDto {
+  productId: String!
   storeId: String!
   name: String!
   price: Float!
@@ -118,13 +121,30 @@ input UpdateOfferDto {
   active: Boolean
 }
 
-input CreateProductInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+input CreateProductDto {
+  name: String!
+  description: String
+  brand: String!
+  active: Boolean
+  characteristics: ProductCharacteristicsDto
 }
 
-input UpdateProductInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+input ProductCharacteristicsDto {
+  size: String
+  sizeSystem: String
+  gender: String
+  ageGroup: String
+  color: String
+  weight: String
+  height: String
+  width: String
+  length: String
+}
+
+input UpdateProductDto {
+  name: String
+  description: String
+  brand: String
+  active: Boolean
+  characteristics: ProductCharacteristicsDto
 }

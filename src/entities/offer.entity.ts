@@ -54,7 +54,7 @@ export class Offer {
   @Column({ default: true })
   active: boolean;
 
-  @ManyToOne(() => Store, (store) => store.offer, {
+  @ManyToOne(() => Store, (store) => store.offers, {
     nullable: false,
     onDelete: 'CASCADE',
     eager: true,
@@ -62,7 +62,7 @@ export class Offer {
   @JoinColumn({ name: 'store_id' })
   store: Store;
 
-  @ManyToOne(() => Product, (product) => product.offer, {
+  @ManyToOne(() => Product, (product) => product.offers, {
     nullable: false,
     onDelete: 'CASCADE',
     eager: true,

@@ -1,4 +1,3 @@
-import { Store } from '@entities/store.entity';
 import { PaginationDto } from '@dtos/pagination.dto';
 import { Repository } from 'typeorm';
 import { Inject, Injectable } from '@nestjs/common';
@@ -6,6 +5,8 @@ import { CreateOfferDto } from '@dtos/offer/create-offer.dto';
 import { UpdateOfferDto } from '@dtos/offer/update-offer.dto';
 import { Offer } from '@entities/offer.entity';
 import { getPaginationQuery } from '@utils/utils';
+import { Product } from '@entities/product.entity';
+import { Store } from '@entities/store.entity';
 
 @Injectable()
 export class OfferService {
@@ -14,11 +15,14 @@ export class OfferService {
     private offerRepository: Repository<Offer>,
     @Inject('STORE_REPOSITORY')
     private storeRepository: Repository<Store>,
+    @Inject('PRODUCT_REPOSITORY')
+    private productRepository: Repository<Product>,
   ) {}
 
   async create(dto: CreateOfferDto): Promise<Offer> {
     const store = await this.storeRepository.findOne(dto.storeId);
-    const offer = this.offerRepository.create({ ...dto, store });
+    const product = await this.productRepository.findOne(dto.productId);
+    const offer = this.offerRepository.create({ ...dto, store, product });
     return this.offerRepository.save(offer);
   }
 

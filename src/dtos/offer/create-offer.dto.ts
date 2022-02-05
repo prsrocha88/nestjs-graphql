@@ -14,6 +14,9 @@ import { Condition } from 'src/enums/condition.enum';
 @InputType()
 export class CreateOfferDto {
   @IsUUID()
+  productId: string;
+
+  @IsUUID()
   storeId: string;
 
   @IsString()
