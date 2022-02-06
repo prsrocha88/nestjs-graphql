@@ -15,6 +15,12 @@ type ProductSku {
   product: Product!
 }
 
+type Category {
+  id: ID!
+  name: String!
+  description: String
+}
+
 type ProductCharacteristics {
   size: String
   sizeSystem: String
@@ -37,6 +43,7 @@ type Product {
   offers: [Offer!]
   images: [ProductImage!]
   skus: [ProductSku!]
+  categories: [Category!]!
 }
 
 type Offer {
@@ -77,6 +84,8 @@ type Query {
   offer(id: String!): Offer!
   products(pagination: PaginationDto = {page: 1, maxResultPerPage: 100}): [Product!]!
   product(id: String!): Product!
+  categories(pagination: PaginationDto = {page: 1, maxResultPerPage: 100}): [Category!]!
+  category(id: String!): Category!
 }
 
 input PaginationDto {
@@ -94,6 +103,9 @@ type Mutation {
   createProduct(data: CreateProductDto!): Product!
   updateProduct(data: UpdateProductDto!, id: String!): Product!
   removeProduct(id: String!): Boolean!
+  createCategory(data: CreateCategoryDto!): Category!
+  updateCategory(data: UpdateCategoryDto!, id: String!): Category!
+  removeCategory(id: String!): Boolean!
 }
 
 input CreateStoreDto {
@@ -139,6 +151,7 @@ input UpdateOfferDto {
 }
 
 input CreateProductDto {
+  categories: [String!]!
   name: String!
   description: String
   brand: String!
@@ -170,9 +183,20 @@ input ProductSkuDto {
 }
 
 input UpdateProductDto {
+  categoryId: String
   name: String
   description: String
   brand: String
   active: Boolean
   characteristics: ProductCharacteristicsDto
+}
+
+input CreateCategoryDto {
+  name: String!
+  description: String
+}
+
+input UpdateCategoryDto {
+  name: String
+  description: String
 }

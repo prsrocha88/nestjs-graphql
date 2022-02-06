@@ -6,12 +6,17 @@ import {
   IsNotEmptyObject,
   IsOptional,
   IsString,
+  IsUUID,
   ValidateNested,
 } from 'class-validator';
 import { ProductCharacteristicsDto } from './product-characteristics.dto';
 
 @InputType()
 export class UpdateProductDto {
+  @IsUUID()
+  @IsOptional()
+  categoryId?: string;
+
   @IsString()
   @IsNotEmpty()
   name?: string;

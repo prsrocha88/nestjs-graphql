@@ -1,5 +1,13 @@
+import { Category } from './category.entity';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Offer } from './offer.entity';
 import { ProductImage } from './product-image.entity';
 import { ProductSku } from './product-sku.entity';
@@ -56,4 +64,8 @@ export class Product {
     eager: true,
   })
   skus?: ProductSku[];
+
+  @ManyToMany(() => Category, { eager: true })
+  @JoinTable({ name: 'product_category' })
+  categories: Category[];
 }

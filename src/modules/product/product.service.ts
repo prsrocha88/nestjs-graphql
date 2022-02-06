@@ -5,16 +5,20 @@ import { Repository } from 'typeorm';
 import { Product } from '@entities/product.entity';
 import { PaginationDto } from '@dtos/pagination.dto';
 import { getPaginationQuery } from '@utils/utils';
+import { Category } from '@entities/category.entity';
 
 @Injectable()
 export class ProductService {
   constructor(
     @Inject('PRODUCT_REPOSITORY')
     private productRepository: Repository<Product>,
+    @Inject('CATEGORY_REPOSITORY')
+    private categoryRepository: Repository<Category>,
   ) {}
 
   async create(dto: CreateProductDto): Promise<Product> {
-    const product = this.productRepository.create(dto);
+    const categories = await this.categoryRepository.findByIds(dto.categories);
+    const product = this.productRepository.create({ ...dto, categories });
     return this.productRepository.save(product);
   }
 
