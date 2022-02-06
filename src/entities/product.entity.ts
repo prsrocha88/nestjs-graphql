@@ -42,7 +42,7 @@ export class Product {
   })
   characteristics?: ProductCharacteristics;
 
-  @OneToMany(() => Offer, (offer) => offer.store, { eager: true })
+  @OneToMany(() => Offer, (offer) => offer.product, { eager: true })
   offers?: Offer[];
 
   @OneToMany(() => ProductImage, (image) => image.product, {
