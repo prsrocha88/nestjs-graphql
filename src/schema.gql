@@ -2,6 +2,19 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type ProductImage {
+  id: ID!
+  source: String!
+  default: Boolean!
+  product: Product!
+}
+
+type ProductSku {
+  id: ID!
+  sku: String!
+  product: Product!
+}
+
 type ProductCharacteristics {
   size: String
   sizeSystem: String
@@ -21,6 +34,9 @@ type Product {
   brand: String!
   active: Boolean!
   characteristics: ProductCharacteristics
+  offers: [Offer!]
+  images: [ProductImage!]
+  skus: [ProductSku!]
 }
 
 type Offer {
@@ -51,6 +67,7 @@ type Store {
   name: String!
   image: String
   active: Boolean
+  offers: [Offer!]
 }
 
 type Query {
@@ -127,6 +144,8 @@ input CreateProductDto {
   brand: String!
   active: Boolean
   characteristics: ProductCharacteristicsDto
+  images: [ProductImageDto!]
+  skus: [ProductSkuDto!]
 }
 
 input ProductCharacteristicsDto {
@@ -139,6 +158,15 @@ input ProductCharacteristicsDto {
   height: String
   width: String
   length: String
+}
+
+input ProductImageDto {
+  source: String!
+  default: Boolean
+}
+
+input ProductSkuDto {
+  sku: String!
 }
 
 input UpdateProductDto {

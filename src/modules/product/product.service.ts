@@ -23,7 +23,9 @@ export class ProductService {
   }
 
   async findOne(id: string): Promise<Product> {
-    return this.productRepository.findOne(id);
+    const product = await this.productRepository.findOne(id);
+    console.log("🚀 ~ file: product.service.ts ~ line 27 ~ ProductService ~ findOne ~ product", product)
+    return product;
   }
 
   async update(id: string, dto: UpdateProductDto): Promise<Product> {

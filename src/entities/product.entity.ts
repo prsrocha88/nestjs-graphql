@@ -1,4 +1,4 @@
-import { Field, HideField, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Offer } from './offer.entity';
 import { ProductImage } from './product-image.entity';
@@ -42,15 +42,18 @@ export class Product {
   })
   characteristics?: ProductCharacteristics;
 
-  @HideField()
-  @OneToMany(() => Offer, (offer) => offer.store)
+  @OneToMany(() => Offer, (offer) => offer.store, { eager: true })
   offers?: Offer[];
 
-  @HideField()
-  @OneToMany(() => ProductImage, (image) => image.product)
+  @OneToMany(() => ProductImage, (image) => image.product, {
+    cascade: true,
+    eager: true,
+  })
   images?: ProductImage[];
 
-  @HideField()
-  @OneToMany(() => ProductSku, (sku) => sku.product)
+  @OneToMany(() => ProductSku, (sku) => sku.product, {
+    cascade: true,
+    eager: true,
+  })
   skus?: ProductSku[];
 }

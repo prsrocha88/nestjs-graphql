@@ -57,7 +57,6 @@ export class Offer {
   @ManyToOne(() => Store, (store) => store.offers, {
     nullable: false,
     onDelete: 'CASCADE',
-    eager: true,
   })
   @JoinColumn({ name: 'store_id' })
   store: Store;
@@ -65,7 +64,6 @@ export class Offer {
   @ManyToOne(() => Product, (product) => product.offers, {
     nullable: false,
     onDelete: 'CASCADE',
-    eager: true,
   })
   @JoinColumn({ name: 'product_id' })
   product: Product;

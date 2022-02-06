@@ -1,4 +1,4 @@
-import { Field, HideField, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Offer } from './offer.entity';
 
@@ -18,7 +18,6 @@ export class Store {
   @Column({ default: true })
   active?: boolean;
 
-  @HideField()
-  @OneToMany(() => Offer, offer => offer.store)
+  @OneToMany(() => Offer, (offer) => offer.store, { eager: true })
   offers?: Offer[];
 }

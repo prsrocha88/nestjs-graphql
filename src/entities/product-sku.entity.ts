@@ -21,7 +21,6 @@ export class ProductSku {
   @ManyToOne(() => Product, (product) => product.skus, {
     nullable: false,
     onDelete: 'CASCADE',
-    eager: true,
   })
   @JoinColumn({ name: 'product_id' })
   product: Product;
