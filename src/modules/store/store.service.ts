@@ -28,7 +28,7 @@ export class StoreService {
 
   async update(id: string, dto: UpdateStoreDto): Promise<Store> {
     const store = await this.storeRepository.findOne(id);
-    await this.storeRepository.update(store, { ...dto });
+    await this.storeRepository.update(id, { ...dto });
     return this.storeRepository.create({ ...store, ...dto });
   }
 

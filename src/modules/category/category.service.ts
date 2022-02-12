@@ -28,7 +28,7 @@ export class CategoryService {
 
   async update(id: string, dto: UpdateCategoryDto): Promise<Category> {
     const category = await this.categoryRepository.findOne(id);
-    await this.categoryRepository.update(category, { ...dto });
+    await this.categoryRepository.update(id, { ...dto });
     return this.categoryRepository.create({ ...category, ...dto });
   }
 

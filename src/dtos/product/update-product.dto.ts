@@ -19,6 +19,7 @@ export class UpdateProductDto {
 
   @IsString()
   @IsNotEmpty()
+  @IsOptional()
   name?: string;
 
   @IsString()
@@ -28,6 +29,7 @@ export class UpdateProductDto {
 
   @IsString()
   @IsNotEmpty()
+  @IsOptional()
   brand?: string;
 
   @IsBoolean()

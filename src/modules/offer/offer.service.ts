@@ -36,7 +36,7 @@ export class OfferService {
 
   async update(id: string, dto: UpdateOfferDto): Promise<Offer> {
     const offer = await this.offerRepository.findOne(id);
-    await this.offerRepository.update(offer, { ...dto });
+    await this.offerRepository.update(id, { ...dto });
     return this.offerRepository.create({ ...offer, ...dto });
   }
 

@@ -32,7 +32,11 @@ export class ProductService {
 
   async update(id: string, dto: UpdateProductDto): Promise<Product> {
     const product = await this.productRepository.findOne(id);
-    await this.productRepository.update(product, { ...dto });
+    dto.characteristics = {
+      ...product.characteristics,
+      ...dto.characteristics,
+    };
+    await this.productRepository.update(id, { ...dto });
     return this.productRepository.create({ ...product, ...dto });
   }
 
