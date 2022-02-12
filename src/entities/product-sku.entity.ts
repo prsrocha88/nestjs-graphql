@@ -6,6 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { DateColumns } from './date-columns.entity';
 import { Product } from './product.entity';
 
 @ObjectType()
@@ -17,6 +18,9 @@ export class ProductSku {
 
   @Column()
   sku: string;
+
+  @Column(() => DateColumns, { prefix: false })
+  dateColumns: DateColumns;
 
   @ManyToOne(() => Product, (product) => product.skus, {
     nullable: false,

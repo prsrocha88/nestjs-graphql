@@ -6,12 +6,24 @@ type ProductImage {
   id: ID!
   source: String!
   default: Boolean!
+  dateColumns: DateColumns!
   product: Product!
 }
+
+type DateColumns {
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type ProductSku {
   id: ID!
   sku: String!
+  dateColumns: DateColumns!
   product: Product!
 }
 
@@ -19,6 +31,7 @@ type Category {
   id: ID!
   name: String!
   description: String
+  dateColumns: DateColumns!
 }
 
 type ProductCharacteristics {
@@ -40,6 +53,7 @@ type Product {
   brand: String!
   active: Boolean!
   characteristics: ProductCharacteristics
+  dateColumns: DateColumns!
   offers: [Offer!]
   images: [ProductImage!]
   skus: [ProductSku!]
@@ -59,6 +73,7 @@ type Offer {
   rating: Float
   condition: Condition!
   active: Boolean!
+  dateColumns: DateColumns!
   store: Store!
   product: Product!
 }
@@ -74,6 +89,7 @@ type Store {
   name: String!
   image: String
   active: Boolean
+  dateColumns: DateColumns!
   offers: [Offer!]
 }
 

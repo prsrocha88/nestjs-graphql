@@ -1,3 +1,4 @@
+
 import { Category } from './category.entity';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import {
@@ -11,6 +12,7 @@ import {
 import { Offer } from './offer.entity';
 import { ProductImage } from './product-image.entity';
 import { ProductSku } from './product-sku.entity';
+import { DateColumns } from './date-columns.entity';
 
 @ObjectType()
 export class ProductCharacteristics {
@@ -49,6 +51,9 @@ export class Product {
     nullable: true,
   })
   characteristics?: ProductCharacteristics;
+
+  @Column(() => DateColumns, { prefix: false })
+  dateColumns: DateColumns;
 
   @OneToMany(() => Offer, (offer) => offer.product, { eager: true })
   offers?: Offer[];

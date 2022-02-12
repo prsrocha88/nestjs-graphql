@@ -1,5 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { DateColumns } from './date-columns.entity';
 
 @ObjectType()
 @Entity()
@@ -13,4 +14,7 @@ export class Category {
 
   @Column({ nullable: false })
   description?: string;
+
+  @Column(() => DateColumns, { prefix: false })
+  dateColumns: DateColumns;
 }

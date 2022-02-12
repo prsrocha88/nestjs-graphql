@@ -9,6 +9,7 @@ import {
 import { Condition } from '../enums/condition.enum';
 import { Store } from './store.entity';
 import { Product } from './product.entity';
+import { DateColumns } from './date-columns.entity';
 
 @ObjectType()
 @Entity()
@@ -53,6 +54,9 @@ export class Offer {
 
   @Column({ default: true })
   active: boolean;
+
+  @Column(() => DateColumns, { prefix: false })
+  dateColumns: DateColumns;
 
   @ManyToOne(() => Store, (store) => store.offers, {
     nullable: false,

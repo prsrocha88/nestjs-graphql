@@ -1,5 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { DateColumns } from './date-columns.entity';
 import { Offer } from './offer.entity';
 
 @ObjectType()
@@ -17,6 +18,9 @@ export class Store {
 
   @Column({ default: true })
   active?: boolean;
+
+  @Column(() => DateColumns, { prefix: false })
+  dateColumns: DateColumns;
 
   @OneToMany(() => Offer, (offer) => offer.store, { eager: true })
   offers?: Offer[];
